@@ -43,8 +43,9 @@ namespace UIPanelGenerator
             }
         }
 
-        public UIPanelBase m_PanelBase;
-        public ReorderableList m_ReorderableList;
+		private static EditorWindow window = null;
+		private UIPanelBase m_PanelBase;
+        private ReorderableList m_ReorderableList;
         public static string m_Prefab1Path = "Assets/Editor/UIPanelGenerator/BaseAssets/PrefabBase/UIPanelBase1.prefab";
         public static string m_Prefab2Path = "Assets/Editor/UIPanelGenerator/BaseAssets/PrefabBase/UIPanelBase2.prefab";
         public static string m_PanelScriptPath = "Assets/Editor/UIPanelGenerator/BaseAssets/ScriptBase/PanelScriptBase.cs";
@@ -63,9 +64,9 @@ namespace UIPanelGenerator
         [MenuItem( "UIPanelGenerator/CreateUIPanel" )]
         static void OpenWindow()
         {
-            EditorWindow window = GetWindow<CreateUIPanel>();
+            window = GetWindow<CreateUIPanel>();
             window.titleContent.text = "CreateUIPanel";
-            window.minSize = new Vector2( 270, 360 );
+            window.minSize = new Vector2( 300, 400 );
             window.Show();
         }
 
@@ -93,7 +94,9 @@ namespace UIPanelGenerator
             }
             else
             {
-                Debug.LogError( "未找到文件！ Assets/Editor/UIPanelGenerator/PanelBase.asset" );
+                Debug.LogError( "未找到文件或者文件出错！ Assets/Editor/UIPanelGenerator/PanelBase.asset" );
+				if ( window != null )
+					window.Close();
             }
         }
 
